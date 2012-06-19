@@ -1,4 +1,18 @@
-%h1 Welcome to Blazing Lisutu 
+#index_body
+  =flash[:notice]
+  %br
+  %br
+  %h1 Welcome to Blazing Lisutu 
+  ="Your address book is empty!" if @address_book.empty?
 
-="Your address book is empty!" if @address_book.empty?
+  -@address_book.each do |p|
+    =p.f_name
+    =p.l_name
+    =p.address
+    =p.phone_num
+    %br
+
+  %br
+  %br
+  =link_to "Add new contact", new_addressbook_path 
 
