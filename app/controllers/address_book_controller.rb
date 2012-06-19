@@ -20,11 +20,16 @@ class AddressBookController < ApplicationController
 
   def edit
     @person = AddressBook.find(params[:id])
-
   end
 
   def update
-    
+    @book = AddressBook.find(params[:id])
+
+    if @book.update_attributes(params[:book])
+      redirect_to root_url, notice: 'Person has been edited'
+    else
+      render "edit"
+    end    
   end
 
   def destroy
