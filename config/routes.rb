@@ -1,7 +1,8 @@
 Lisutu::Application.routes.draw do
 
-  match '/' => 'AddressBook#index'
-  match '/new' => 'AddressBook#new'
+  root to: 'AddressBook#index' 
+  resources :addressbook, controller: 'AddressBook'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
