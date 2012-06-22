@@ -1,20 +1,20 @@
-#new_person_form
-  =form_for @person, :url => addressbook_index_path(@person), :as => :post do |p| 
-    =p.label 'First Name' 
-    =p.text_field :f_name
-    %br
-    %br
-    =p.label 'Last Name' 
-    =p.text_field :l_name
-    %br
-    %br
-    =p.label 'Address'
-    =p.text_field :address
-    %br
-    %br
-    =p.label 'Phone Number'
-    =p.text_field :phone_num
-    %br
-    %br
 
-    =p.submit 'Add to address book'
+=form_for @person, :url => addressbook_index_path(@person), :as => :post do |p| 
+  =p.label 'First Name' 
+  =p.text_field :f_name
+  %br
+  %br
+  =p.label 'Last Name' 
+  =p.text_field :l_name
+  %br
+  %br
+  =p.label 'Address'
+  =p.text_field :address
+  %br
+  %br
+  =p.label 'Phone Number'
+  =p.text_field :phone_num
+  %br
+  %br
+
+  =p.submit 'Add to address book'

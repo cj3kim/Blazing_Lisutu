@@ -4,8 +4,15 @@ class AddressBookController < ApplicationController
     @address_book = AddressBook.all 
   end
 
-  def new
-    @person = AddressBook.new
+  def edit
+    @person = AddressBook.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json{
+        render :json => @person.to_json
+      }
+    end
   end
 
   def create
@@ -18,14 +25,25 @@ class AddressBookController < ApplicationController
     end
   end
 
-  def edit
+  def new
+    @person = AddressBook.new
+  end
+
+  def show
     @person = AddressBook.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json{
+        render :json => @person.to_json
+      }
+    end
   end
 
   def update
     @book = AddressBook.find(params[:id])
 
-    if @book.update_attributes(params[:book])
+    if @book.update_attributes(params[:post])
       redirect_to root_url, notice: 'Person has been edited'
     else
       render "edit"
