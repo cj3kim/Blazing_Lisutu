@@ -1,60 +1,13 @@
 :javascript
-  var loadData = function(object){
-      var id = object.attr('id') 
-      
-      var url = '/addressbook/'+ id + '/edit/' 
-
-      $.ajax( url, {
-        type: 'GET',
-        cache: false, 
-        dataType: 'json',
-        success: function(result) {
-          //this selects every div 
-          $(object).find('div.form_box').html('<h1>' + result.f_name + '</h1>'); 
-        },
-      }); 
-  }
-  
-
-  var insertForm = function (object) {
-    // "<tr><td colspan=6><div class=\"form_box\">
-    //<form accept-charset:\"UTF-8\" action=\"addressbook/1\" method=\"post\">
-    //<label>Phone number</label><input type=\"text\" value=\"(423)234-2342\" />
-    //<label>Phone number</label><br><br><input type=\"text\" value=\"(423)234-2342\" />
-    //<br><label>Phone number</label><br><input type=\"text\" value=\"(423)234-2342\" />
-    //<br><br><input name=\"commit\" type=\"submit\" value=\"Update address book\" /> 
-    //</form> </div> </td></tr>"
-
-    //object is parentNode from $(document).ready
-    var id = $(object).attr('id');
-
-    var formBox = $('<tr id='+id+'><td colspan=6><div class=\'form_box\'></div></td></tr>');
-    var childTrNode = $(object).next();
-
-    if (childTrNode.find('div.form_box').length !== 0 ) {
-
-      childTrNode.find('div.form_box').slideToggle(2000, function(){
-        childTrNode.remove();
-      });
-    } else {
-
-      var childTrNode = $(object).after(formBox).next(); 
-      var div = childTrNode.find('div.form_box');
-
-      loadData(childTrNode);
-
-      div.hide();
-      div.slideDown(2000);
-      
-    }
-  }
-
-
   $(document).ready( function() {
+    
+    var form = '#{j(render('slide_out_form')) }'
+
     //Opens and closes drop-down box on td.drop_down_box click 
+    //Fills drop-down box with info about the person.
     $('tr td.drop_down_form').click( function () {
       var parentNode = $(this).parent();
-      $(insertForm(parentNode));
+      $(insertForm(parentNode, form));
     });
 
   });

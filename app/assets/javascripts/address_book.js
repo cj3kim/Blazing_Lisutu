@@ -7,11 +7,38 @@ var selectPerson = function(number) {
   return person; 
 } 
 
-var insertForm = function (object) {
-  
-  //object is parentNode from $(document).ready
 
-  var formBox = $('<tr><td colspan=6><div class="form_box"></div></td></tr>');
+  var loadData = function(object,form){
+      var id = object.attr('id') 
+      
+      var url = '/addressbook/'+ id + '/edit/' 
+
+      $.ajax( url, {
+        type: 'GET',
+        cache: false, 
+        dataType: 'json',
+        success: function(result) {
+
+          var div = $(object).find('div.form_box');
+          div.append(form);
+          /* 
+          div.append('<br>'); 
+          div.append('<p>' + result.f_name + '</p>'); 
+          div.append('<p>' + result.l_name + '</p>'); 
+          div.append('<p>' + result.address + '</p>'); 
+          div.append('<p>' + result.phone_num + '</p>'); 
+          */
+        },
+      }); 
+  }
+  
+
+var insertForm = function (object, form) {
+
+  //object is parentNode from $(document).ready
+  var id = $(object).attr('id');
+
+  var formBox = $('<tr id='+id+'><td colspan=6><div class=\'form_box\'></div></td></tr>');
   var childTrNode = $(object).next();
 
   if (childTrNode.find('div.form_box').length !== 0 ) {
@@ -21,11 +48,13 @@ var insertForm = function (object) {
     });
   } else {
 
-    $(object).after(formBox); //returns parent node
-    var div = $(object).next().find('div.form_box');
+    var childTrNode = $(object).after(formBox).next(); 
+    var div = childTrNode.find('div.form_box');
+
+    loadData(childTrNode, form);
+
     div.hide();
     div.slideDown(2000);
     
   }
 }
-
