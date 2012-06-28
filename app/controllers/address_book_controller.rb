@@ -23,6 +23,7 @@ class AddressBookController < ApplicationController
     else
       render 'new'
     end
+    
   end
 
   def new
@@ -51,6 +52,7 @@ class AddressBookController < ApplicationController
   end
 
   def destroy
-
+    AddressBook.destroy(params[:id])
+    redirect_to root_url, notice: 'Person has been deleted'
   end
 end

@@ -1,23 +1,19 @@
-%form 
-  %label{ for: "f_name"}
-    First Name
-  %br
-  %input{ type: "text", id: "f_name", name: "f_name", value: ""}
-  %br
-  %label{ for: "l_name"}
-    Last Name
-  %br
-  %input{ type: "text", id: "l_name", name: "l_name"}
-  %br
-  %label{ for: "address"}
-    Address
-  %br
-  %input{ type: "text",  id: "address", name: "address"}
-  %br
-  %label{ for: "phone_num"}
-    Phone Number
-  %br
-  %input{ type: "text", id: "phone_num", name: "phone_num"}
-  %br
-  %input{ type: "submit", value: "submit"}
 
+=form_tag( method: 'GET', :controller => 'AddressBook') do 
+  =label_tag 'First Name'
+  =text_field_tag :f_name 
+  %br
+  %br
+  =label_tag 'Last Name'
+  =text_field_tag :l_name 
+  %br
+  %br
+  =label_tag 'Address'
+  =text_field_tag :address 
+  %br
+  %br
+  =label_tag 'Phone Number'
+  =text_field_tag :phone_num 
+  %br
+  %br
+  =submit_tag 'Update', class:'submit_button'
