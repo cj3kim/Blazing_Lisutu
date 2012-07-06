@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  f_name: 
-  l_name: 
-  address: 
+  f_name: MyString
+  l_name: MyString
+  address: MyString
   phone_num: MyString
 
 two:
-  f_name: 
-  l_name: 
-  address: 
+  f_name: MyString
+  l_name: MyString
+  address: MyString
   phone_num: MyString

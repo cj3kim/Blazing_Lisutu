@@ -1,0 +1,34 @@
+// Place all the styles related to the People controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// top, right, bottom left
+.index_container {
+
+  margin: 0 auto; 
+
+  h1 {
+    text-align: center; 
+  }
+
+  table { 
+    th,td {
+      text-align: center; 
+      padding: 5px 20px 5px 20px;
+      font-size: 17px;
+      min-width: 100px
+    }
+    .form_box {
+      width: 100%;
+      height: 220px; 
+      background-color: brown; 
+    }
+  }
+
+  center {
+    .form_box {
+      width: 100%;
+      height: 220px; 
+      background-color: brown; 
+    }
+  }
+}

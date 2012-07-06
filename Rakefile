@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Lisutu::Application.load_tasks
+BlazeLisutu::Application.load_tasks

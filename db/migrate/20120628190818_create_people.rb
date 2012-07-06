@@ -1,6 +1,6 @@
-class CreateAddressBooks < ActiveRecord::Migration
+class CreatePeople < ActiveRecord::Migration
   def change
-    create_table :address_books do |t|
+    create_table :people do |t|
       t.string :f_name
       t.string :l_name
       t.string :address

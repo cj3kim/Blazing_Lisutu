@@ -1,0 +1,33 @@
+%html
+  %head
+    %title Blaze Lisutu
+    =stylesheet_link_tag    "application", media:"all" 
+    =javascript_include_tag "application" 
+    =csrf_meta_tags 
+
+  %body 
+    %center
+      .index_container
+        %br
+        %br
+        %br
+        %h1 Address Book 
+
+        %table
+          %tr
+            %th F name
+            %th L name
+            %th Address
+            %th Phone num
+            %th Delete
+            %th Show 
+
+            %tr{ class: 'person', id:'1' }
+              %td{id:'f_name'} Christopher
+              %td{id:'l_name'} Kim
+              %td{id:'address'} Somewhere Wonderful
+              %td{id:'phone_num'} (234) 234-1341
+              %td Delete
+              %td{class: 'drop_down'} Show
+           
+        %br
