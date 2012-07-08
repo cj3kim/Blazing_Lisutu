@@ -7,8 +7,6 @@
 
 $(document).ready(function() {
 
-  var modelMethods = new Model(); 
-  var listen = new Listener(); 
 
   listen.forClickTdShow();
   listen.forClickOnNewButton();

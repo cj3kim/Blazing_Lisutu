@@ -1,7 +1,7 @@
 
-var Model = function () {};
+var modelMethods = {};
 
-Model.prototype.getPerson = function (personId) { 
+modelMethods.getPerson = function (personId) { 
 
   var personData; 
  
@@ -19,7 +19,7 @@ Model.prototype.getPerson = function (personId) {
   return personData; 
 };
 
-Model.prototype.updatePerson =  function (personId, data, callback ) {
+modelMethods.updatePerson =  function (personId, data, callback ) {
   
   $.ajax({
     type: "PUT",
@@ -32,7 +32,7 @@ Model.prototype.updatePerson =  function (personId, data, callback ) {
   return data; 
 };
 
-Model.prototype.postNewPerson = function (data) {
+modelMethods.postNewPerson = function (data) {
 
   $.ajax({
     type: "POST",
@@ -46,7 +46,7 @@ Model.prototype.postNewPerson = function (data) {
   });
 }
 
-Model.prototype.deletePerson = function (personId) { 
+modelMethods.deletePerson = function (personId) { 
 
   var confirmation = confirm("Are you sure?");
 

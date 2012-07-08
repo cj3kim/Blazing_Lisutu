@@ -19,11 +19,10 @@ var newRow  = "<tr class='person' id=''> \
                 <td class='drop_down'> Show </td> \
               </tr>";
 
-var View = function() {};
+var viewMethods = {};
 
-View.prototype.slideEditForm = function ($personTr) {
+viewMethods.slideEditForm = function ($personTr) {
 
-  var modelMethods = new Model();
   var personId = $personTr.attr('id');
   var $editForm = $(personForm);
 
@@ -38,7 +37,6 @@ View.prototype.slideEditForm = function ($personTr) {
     this.updateEditForm($editForm, personData)
 
     //place listener on form
-    var listen = new Listener(); 
     listen.forSubmitOnEditForm( personId, $editForm);
 
     //Slide down form
@@ -56,7 +54,7 @@ View.prototype.slideEditForm = function ($personTr) {
   }
 }
 
-View.prototype.slideNewForm = function() {
+viewMethods.slideNewForm = function() {
 
   if ($('center div.form_box').length === 0) {
     this.insertNewForm();
@@ -69,7 +67,7 @@ View.prototype.slideNewForm = function() {
   }
 }
                
-View.prototype.insertPersonRow = function(data) {
+viewMethods.insertPersonRow = function(data) {
   
   //clone instead
 
@@ -83,10 +81,9 @@ View.prototype.insertPersonRow = function(data) {
 
 }
 
-View.prototype.insertEditForm =  function($personTr, $editForm) {
+viewMethods.insertEditForm =  function($personTr, $editForm) {
 
     var personId = $personTr.attr('id');
-    var modelMethods = new Model();
     var newSibTr = '<tr class=\'person\' id=\'' + personId + 'n\'><td colspan=6> <div class=\'form_box\'></div></td></tr>';
 
     $personTr.after(newSibTr);
@@ -95,27 +92,25 @@ View.prototype.insertEditForm =  function($personTr, $editForm) {
     $formContainer.append($editForm);
 };
 
-View.prototype.insertNewForm = function() {
+viewMethods.insertNewForm = function() {
     
     var $newForm = $(personForm);
     var $formContainer = $('<div class=\'form_box\'></div>');   
     $('center').append($formContainer); 
     $('center div.form_box').append($newForm);
 
-    var listen = new Listener(); 
-
     listen.forSubmitOnNewForm($newForm);
 }
 
 
-View.prototype.updateEditForm = function (callback, data) {
+viewMethods.updateEditForm = function (callback, data) {
     callback.find('#f_name').attr('value', data.f_name); 
     callback.find('#l_name').attr('value', data.l_name); 
     callback.find('#address').attr('value', data.address); 
     callback.find('#phone_num').attr('value', data.phone_num); 
 }
 
-View.prototype.updatePersonRow = function (callback, data) {
+viewMethods.updatePersonRow = function (callback, data) {
     callback.find('#f_name').text(data.person.f_name); 
     callback.find('#l_name').text(data.person.l_name);
     callback.find('#address').text(data.person.address); 

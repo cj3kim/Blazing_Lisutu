@@ -7,8 +7,7 @@
 
 describe('the listener', function() {
 
-  var modelMethods, viewMethods, listen, $person1, 
-      $showButton, editForm, fakePerson; 
+  var $person1, $showButton, editForm, fakePerson; 
 
   beforeEach( function () {
       loadFixtures('index');
@@ -16,12 +15,6 @@ describe('the listener', function() {
 
       //Deals with Mock and animation incompatibilities
       jQuery.fx.off = true;
-
-      //global functions 
-      modelMethods = new Model();
-      viewMethods = new View();
-      listen = new Listener();
-
       //global variables
       $person1 = $('tr.person#1');
       $showButton = $('tr.person#1 td.drop_down'); //for person 1 

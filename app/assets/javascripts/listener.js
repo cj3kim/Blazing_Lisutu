@@ -1,25 +1,21 @@
 
 
-var Listener = function () {}
+var listen = {};
 
-Listener.prototype.forClickTdShow = function() { 
+listen.forClickTdShow = function() { 
     
-    //**Better to name the function to describe what the function does 
-    //**What function is the td serving
 
     //Listen for a click 
     $('tr td.drop_down').click( function () {
       var $personTr = $(this).parent();
-      var viewMethods = new View();
       
       viewMethods.slideEditForm($personTr);
 
     });
 }
 
-Listener.prototype.forClickOnNewButton = function() {
+listen.forClickOnNewButton = function() {
 
-  var viewMethods = new View(); 
 
   $('center a#new_person').click( function(event){
     event.preventDefault();
@@ -28,11 +24,9 @@ Listener.prototype.forClickOnNewButton = function() {
 }
 
 
-Listener.prototype.forSubmitOnEditForm = function ( personId, $editForm) {
+listen.forSubmitOnEditForm = function ( personId, $editForm) {
 
   $editForm.submit( function(event) {
-    var modelMethods = new Model(); 
-    var viewMethods = new View(); 
     var $personRow = $('tr.person#' + personId);
 
     event.preventDefault();
@@ -50,14 +44,12 @@ Listener.prototype.forSubmitOnEditForm = function ( personId, $editForm) {
 
     viewMethods.updatePersonRow($personRow, newPersonData)
 
+
     alert('You\'ve updated this person');
   }); 
 } 
 
-Listener.prototype.forSubmitOnNewForm = function ($newForm) {
-
-  var modelMethods = new Model();
-  var viewMethods = new View();
+listen.forSubmitOnNewForm = function ($newForm) {
 
   $newForm.submit( function(event) {
     event.preventDefault();
