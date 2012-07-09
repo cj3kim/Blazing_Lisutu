@@ -40,10 +40,12 @@ modelMethods.postNewPerson = function (data) {
     data: data, 
     async: false, 
     dataType: "JSON", 
-    success: function() {
+    success: function(jsonData) {
 
     }
   });
+
+  return data;
 }
 
 modelMethods.deletePerson = function (personId) { 
