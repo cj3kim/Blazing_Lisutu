@@ -44,14 +44,17 @@ describe('the view functions', function() {
     });
 
   });
+     
 
-  //slideEditForm and slideNewForm aren't tested
-  //since the individual functions composing them are tested
-  //
-  //insertPersonRow isn't tested because it is not used to 
-  //dynamically update rows with new POSTs
-  //
-  //The page automatically refreshes after an ajax call
+
+
+  describe('the slideNewForm function', function() {
+  
+  });
+
+  describe('the insertPersonRow function', function() {
+    
+  }); 
 
   describe('the insertEditForm function', function() {
     var searchForEditForm, $editForm, $dropDownBox, $formContainer;
@@ -99,7 +102,6 @@ describe('the view functions', function() {
   }); 
 
   describe('the updateEditForm function', function() {
-
    var $editForm, fakePerson;
 
    beforeEach(function() {
@@ -113,32 +115,16 @@ describe('the view functions', function() {
      viewMethods.updateEditForm($editForm, fakePerson);
    });
 
-   it('should update the f_name value of the edit form', function() {
+   it('should update the values of the edit form', function() {
+
      var f_name = $editForm.find('#f_name').attr('value');
+
      expect(f_name).toBe(fakePerson.f_name);
    });
   }); 
 
   describe('the updatePersonRow function', function() {
-    var  jsonObject;
-
-    beforeEach(function() {
-      jsonObject = {
-        person: {
-          f_name:'Chris' ,
-          l_name:'Kim',
-          address:'Somewhere Wonderful' ,
-          phone_num:'(234) 242-1234' 
-        }
-      };
-
-      viewMethods.updatePersonRow($person1, jsonObject);
-    });
-
-    it('should update the f_name column in the person row', function() {
-      var f_name = $person1.find('#f_name').text();
-      expect(f_name).toBe(jsonObject.person.f_name);
-    });
+    
   }); 
 
 });

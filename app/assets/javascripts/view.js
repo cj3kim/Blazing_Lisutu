@@ -61,7 +61,11 @@ viewMethods.slideNewForm = function() {
       }); 
   }
 }
-               
+
+//Used to dynamically add new rows to page without refresh.
+//Currently, the feature isn't implemented.
+//
+/*
 viewMethods.insertPersonRow = function(data) {
 
   var $newRow = $(newRow);
@@ -72,6 +76,7 @@ viewMethods.insertPersonRow = function(data) {
   $('table').append($newRow);
 
 }
+*/
 
 viewMethods.insertEditForm =  function($personTr, $editForm) {
 

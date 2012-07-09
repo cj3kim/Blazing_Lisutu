@@ -33,11 +33,20 @@ describe('the listener', function() {
     });
 
   describe('the forClickTdShow function', function() {
+    
+    it('should listen for a click', function() {
+      var submit = $form.data('events').submit[0].type;
+      expect(submit).toBe('submit');
+    });
 
 
   }); 
 
   describe('the forSubmitOnEditForm function', function(){
+    it('should listen for a submit', function() {
+      var submit = $form.data('events').submit[0].type;
+      expect(submit).toBe('submit');
+    });
 
    
   });
