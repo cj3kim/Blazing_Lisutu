@@ -49,17 +49,12 @@ modelMethods.postNewPerson = function (data) {
 }
 
 modelMethods.deletePerson = function (personId) { 
-
-  var confirmation = confirm("Are you sure?");
-
-  if ( confirmation === true) {
-    $.ajax({
-        type: "DELETE",
-        url: "/people/" + id, 
-        dataType: "JSON" 
-      }
-    );
-  }
+  $.ajax({
+      type: "DELETE",
+      url: "/people/" + personId, 
+      dataType: "JSON" 
+    }
+  );
 }
 
 

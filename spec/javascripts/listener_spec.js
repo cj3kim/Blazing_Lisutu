@@ -5,7 +5,7 @@
 //=require jquery
 //=require jquery_ujs
 
-describe('the listener', function() {
+describe('the listener functions', function() {
 
   var $person1, $showButton, editForm, fakePerson; 
 

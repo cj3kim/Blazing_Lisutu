@@ -6,7 +6,7 @@
 //=require jquery_ujs
 
 
-describe('the view', function() {
+describe('the view functions', function() {
 
   var $person1,$showButton, editForm, fakePerson; 
 

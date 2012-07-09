@@ -6,43 +6,28 @@
 //=require jquery
 //=require jquery_ujs
 
-describe('the model', function () {
-  //function variables
+describe('the model functions', function () {
 
   var createFakeSuccess, getPersonArgs, successCallback;
-
   var $person1,$showButton, editForm, fakePerson; 
 
   beforeEach( function () {
      loadFixtures('index');
      jasmine.Clock.useMock();
 
-     createFakeSuccess = function () {
-        getPersonArgs = $.ajax.argsForCall;
-        getPersonArgs[0][0].success = jasmine.createSpy('success mock')
-                                             .andCallFake( function (fakePerson) {
-                                                              return fakePerson;  
-                                       });
-        successCallback = getPersonArgs[0][0].success;
-     }
      //Deals with Mock and animation incompatibilities
      jQuery.fx.off = true;
 
-     //global variables
-     $person1 = $('tr.person#1');
-     $showButton = $('tr.person#1 td.drop_down'); //for person 1 
-     editForm = "<br><form> \
-                      <label>First Name</label>  \
-                      <input  class='edit_form' id='f_name' type='text' value=''></input> <br><br>  \
-                      <label>Last Name</label>  \
-                      <input  class='edit_form' id='l_name' type='text' value=''></input> <br><br>  \
-                      <label>Address</label>  \
-                      <input  class='edit_form' id='address' type='text' value=''></input> <br><br> \
-                      <label>Phone Number</label>  \
-                      <input  class='edit_form' id='phone_num' type='text' value=''></input> <br><br> \
-                      <input type='submit'></input> \
-                    </form> <br> ";  
-
+     //sets fake success function variable for ajax testing
+     createFakeSuccess = function () {
+        getPersonArgs = $.ajax.argsForCall;
+        getPersonArgs[0][0].success = 
+          jasmine.createSpy('success mock')
+                 .andCallFake( function (fakePerson) {
+                                   return fakePerson;  
+                            });
+        successCallback = getPersonArgs[0][0].success;
+     }
      //fake JSON object
      fakePerson = {
        f_name:'Chris' ,
@@ -54,28 +39,25 @@ describe('the model', function () {
   });
 
   describe('the getPerson function', function () {
-
-    it('should successfully be called', function() {
-
-      modelMethods.getPerson = jasmine.createSpy('getPerson stub');
-      modelMethods.getPerson(1); 
-
-      expect(modelMethods.getPerson).toHaveBeenCalled(); 
+    beforeEach( function() {
+      spyOn($, 'ajax'); 
+      modelMethods.getPerson(1);
+      createFakeSuccess();
     });
 
     it('should be a GET request', function() {
-       spyOn($, 'ajax'); 
-       modelMethods.getPerson(1);
+       
        expect($.ajax.mostRecentCall.args[0]["type"]).toEqual("GET");
+    });
+
+    it('should successfully be called', function() {
+
+      successCallback();
+      expect(successCallback).toHaveBeenCalled(); 
     });
 
     it('should return GET data', function() {
 
-       spyOn($, 'ajax'); 
-
-       modelMethods.getPerson(1);
-
-       createFakeSuccess();
        var personData = successCallback(fakePerson);
 
        expect(personData.f_name).toBe(fakePerson.f_name);
@@ -88,30 +70,25 @@ describe('the model', function () {
   });
 
   describe('the updatePerson function', function () {
-
-    it('should be successfully called', function() {
-      spyOn($,'ajax');
+    beforeEach( function() {
+      spyOn($, 'ajax'); 
       modelMethods.updatePerson(1);
-
       createFakeSuccess();
-      successCallback();
+    });    
+    
+    it('should be a PUT request', function() {
 
-      expect(successCallback).toHaveBeenCalled();
-
-    });
-
-    it('updatePerson should be a PUT request', function() {
-      spyOn($,'ajax');
-      modelMethods.updatePerson(1);
-      //refactor this code 
       expect($.ajax.mostRecentCall.args[0]["type"]).toEqual("PUT");
     });
 
-    it('should return PUT data', function(){ 
-      spyOn($,'ajax');
-      modelMethods.updatePerson(1, fakePerson)
+    it('should be successfully called', function() {
 
-      createFakeSuccess();
+      successCallback();
+      expect(successCallback).toHaveBeenCalled();
+    });
+
+    it('should return PUT data', function(){ 
+
       var data = successCallback(fakePerson);
       
       expect(fakePerson.f_name).toBe(data.f_name);
@@ -123,29 +100,23 @@ describe('the model', function () {
 
   describe('the postNewPerson function', function() {
 
-    it('should be successfully called', function() {
-      spyOn($,'ajax');
+    beforeEach( function() {
+      spyOn($, 'ajax'); 
       modelMethods.postNewPerson(fakePerson);
-
       createFakeSuccess();
-      successCallback();
+    });    
 
-      expect(successCallback).toHaveBeenCalled();
+    it('should be a POST request', function() {
 
-    });
-
-    it('postNewPerson should be a POST request', function() {
-      spyOn($,'ajax');
-      modelMethods.postNewPerson(1);
-      //refactor this code 
       expect($.ajax.mostRecentCall.args[0]["type"]).toEqual("POST");
     });
 
-    it('should post a new person', function() {
-      spyOn($,'ajax'); 
+    it('should be successfully called', function() {
+      successCallback();
+      expect(successCallback).toHaveBeenCalled();
+    });
 
-      modelMethods.postNewPerson(fakePerson);
-
+    it('should return post data', function() {
       createFakeSuccess();
       var data = successCallback(fakePerson);
 
@@ -154,6 +125,24 @@ describe('the model', function () {
       expect(fakePerson.address).toBe(data.address);
       expect(fakePerson.phone_num).toBe(data.phone_num);
 
+    });
+  });
+
+  describe('the deletePerson function', function() {
+    beforeEach( function() {
+      spyOn($, 'ajax'); 
+      modelMethods.deletePerson(1);
+      createFakeSuccess();
+    });    
+
+    it('should be a DELETE request', function() {
+
+      expect($.ajax.mostRecentCall.args[0]["type"]).toEqual("DELETE");
+    });
+
+    it('should be successfully called', function() {
+      successCallback();
+      expect(successCallback).toHaveBeenCalled();
     });
   });
 });
