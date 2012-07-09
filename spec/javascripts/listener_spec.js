@@ -30,24 +30,31 @@ describe('the listener', function() {
                       <input  class='edit_form' id='phone_num' type='text' value=''></input> <br><br> \
                       <input type='submit'></input> \
                     </form> <br> ";  
-    });
+      $editForm = $(editForm);
+  });
 
   describe('the forClickTdShow function', function() {
-    
     it('should listen for a click', function() {
-      var submit = $form.data('events').submit[0].type;
-      expect(submit).toBe('submit');
+      listen.forClickOnTdShow();
+      var $click = $showButton.data('events').click[0].type;
+      expect($click).toBe('click');
     });
-
-
   }); 
 
   describe('the forSubmitOnEditForm function', function(){
     it('should listen for a submit', function() {
-      var submit = $form.data('events').submit[0].type;
-      expect(submit).toBe('submit');
+      listen.forSubmitOnEditForm(1, $editForm);
+      var $submit = $editForm.data('events').submit[0].type;
+      expect($submit).toBe('submit');
     });
-
-   
   });
+
+  describe('the forClickOnNewButton function', function() {
+    it('should listen for a click', function() {
+      listen.forClickOnNewButton();
+      var $newLink = $('a#new_person');
+      var $click = $newLink.data('events').click[0].type;
+      expect($click).toBe('click');
+    });
+  }); 
 });
