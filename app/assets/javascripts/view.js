@@ -40,16 +40,17 @@ viewMethods.slideEditForm = function ($personTr) {
     listen.forSubmitOnEditForm( personId, $editForm);
 
     //Slide down form
-    var $sibTr = $personTr.next(); //I know this smells!
-    var $divInSibTr = $sibTr.find('div.form_box');
-    $divInSibTr.hide().slideDown(800);
+    var $dropDownBox = $personTr.next(); //I know this smells!
+
+    var $divInDropDownBox = $dropDownBox.find('div.form_box');
+    $divInDropDownBox.hide().slideDown(800);
 
   } else {
-      var $sibTr = $personTr.next(); 
-      var $divInSibTr = $sibTr.find('div.form_box');
+      var $dropDownBox = $personTr.next(); 
+      var $divInDropDownBox = $dropDownBox.find('div.form_box');
 
-      $divInSibTr.slideToggle(800, function() {
-          $sibTr.remove();
+      $divInDropDownBox.slideToggle(800, function() {
+          $dropDownBox.remove();
       }); 
   }
 }
@@ -68,8 +69,6 @@ viewMethods.slideNewForm = function() {
 }
                
 viewMethods.insertPersonRow = function(data) {
-  
-  //clone instead
 
   var $newRow = $(newRow);
   $newRow.find('#f_name').text(data.person.f_name);
@@ -77,7 +76,6 @@ viewMethods.insertPersonRow = function(data) {
   $newRow.find('#address').text(data.person.address);
   $newRow.find('#phone_num').text(data.person.phone_num);
   $('table').append($newRow);
-
 
 }
 

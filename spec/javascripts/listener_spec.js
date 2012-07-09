@@ -5,7 +5,7 @@
 //=require jquery
 //=require jquery_ujs
 
-describe('the listener functions', function() {
+describe('the listener', function() {
 
   var $person1, $showButton, editForm, fakePerson; 
 
@@ -32,27 +32,12 @@ describe('the listener functions', function() {
                     </form> <br> ";  
     });
 
-  describe('forClickTdShow', function() {
+  describe('the forClickTdShow function', function() {
 
-    it('should open and close', function() {
 
-      $editForm = $(editForm);
-
-      var searchForEditForm = function() {
-        return $('tr.person#1n form'); 
-      }
-
-      viewMethods.insertEditForm($person1, $editForm);
-      jasmine.Clock.tick(200);
-      expect(searchForEditForm()).toBeVisible(); 
-
-      searchForEditForm().remove(); 
-      jasmine.Clock.tick(200);
-      expect(searchForEditForm()).not.toExist(); 
-    }); 
   }); 
 
-  describe('forSubmitOnEditForm', function(){
+  describe('the forSubmitOnEditForm function', function(){
 
    
   });
