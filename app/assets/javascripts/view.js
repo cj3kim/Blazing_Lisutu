@@ -28,18 +28,13 @@ viewMethods.slideEditForm = function ($personTr) {
 
   if ($personTr.next().find('div.form_box').length === 0) {
 
-    this.insertEditForm($personTr, $editForm);
-
-    //getPerson here
     var personData = modelMethods.getPerson(personId); 
 
-    //update form here 
+    this.insertEditForm($personTr, $editForm);
     this.updateEditForm($editForm, personData)
 
-    //place listener on form
     listen.forSubmitOnEditForm( personId, $editForm);
 
-    //Slide down form
     var $dropDownBox = $personTr.next(); //I know this smells!
 
     var $divInDropDownBox = $dropDownBox.find('div.form_box');
@@ -57,12 +52,11 @@ viewMethods.slideEditForm = function ($personTr) {
 
 viewMethods.slideNewForm = function() {
 
-  if ($('center div.form_box').length === 0) {
+  if ($('center#new_person div.form_box').length === 0) {
     this.insertNewForm();
     $('center div.form_box').hide().slideDown(800);
-
   } else {
-      $('center div.form_box').slideToggle(800, function() {
+      $('center#new_person div.form_box').slideToggle(800, function() {
           $(this).remove();
       }); 
   }
@@ -82,9 +76,9 @@ viewMethods.insertPersonRow = function(data) {
 viewMethods.insertEditForm =  function($personTr, $editForm) {
 
     var personId = $personTr.attr('id');
-    var newSibTr = '<tr class=\'person\' id=\'' + personId + 'n\'><td colspan=6> <div class=\'form_box\'></div></td></tr>';
+    var dropDownBox = '<tr class=\'person\' id=\'' + personId + 'n\'><td colspan=6> <div class=\'form_box\'></div></td></tr>';
 
-    $personTr.after(newSibTr);
+    $personTr.after(dropDownBox);
 
     $formContainer = $personTr.next().find('div.form_box');
     $formContainer.append($editForm);
@@ -94,8 +88,8 @@ viewMethods.insertNewForm = function() {
     
     var $newForm = $(personForm);
     var $formContainer = $('<div class=\'form_box\'></div>');   
-    $('center').append($formContainer); 
-    $('center div.form_box').append($newForm);
+    $('center#new_person').append($formContainer); 
+    $('center#new_person div.form_box').append($newForm);
 
     listen.forSubmitOnNewForm($newForm);
 }

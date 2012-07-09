@@ -8,7 +8,7 @@
 $(document).ready(function() {
 
 
-  listen.forClickTdShow();
+  listen.forClickOnTdShow();
   listen.forClickOnNewButton();
 }); 
 

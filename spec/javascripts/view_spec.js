@@ -31,7 +31,7 @@ describe('the view functions', function() {
                       <input type='submit'></input> \
                     </form> ";  
 
-      });
+  });
 
   describe('the first person', function() {
     it('should be tr.person#1. The name is Christopher.', function() {
@@ -57,33 +57,48 @@ describe('the view functions', function() {
   }); 
 
   describe('the insertEditForm function', function() {
-    beforeEach(function() {
-      var $editForm = $(editForm);
-      var searchForEditForm = function() {return $editForm;}
-      var $dropDownBox = $('tr.person#1n');
-      var $formContainer = $('div.form_box'); 
+    var searchForEditForm, $editForm, $dropDownBox, $formContainer;
 
+    beforeEach(function() {
+
+      $editForm = $(editForm);
       viewMethods.insertEditForm($person1, $editForm);
+      jasmine.Clock.tick(1000);
+      $dropDownBox = $('tr.person#1n');
+      $formContainer = $('div.form_box'); 
+      searchForEditForm = function() {return $editForm;}
     });
 
     it('should insert new row', function() {
-      jasmine.Clock.tick(200);
       expect(searchForEditForm()).toBeVisible(); 
     });
 
     it('should have an edit form inside the div.form_box', function () { 
-      jasmine.Clock.tick(300); 
       expect($dropDownBox).toContain($editForm);
     }); 
 
     it('should have div.form_box inside the new tr', function() {
-      jasmine.Clock.tick(300); 
       expect($dropDownBox).toContain($formContainer); 
     });
   });
 
   describe('the insertNewForm function', function() {
-    
+    var findNewForm, $form;
+
+    beforeEach(function() {
+      viewMethods.insertNewForm(); 
+      findNewForm = function() { return $('center#new_person form');}
+      $form = findNewForm();
+    });
+
+    it('should insert a form below the New Person link', function() {
+      expect($form).toExist();
+    });
+
+    it('should listen for a submit', function() {
+      var submit = $form.data('events').submit[0].type;
+      expect(submit).toBe('submit');
+    });
   }); 
 
   describe('the updateEditForm function', function() {

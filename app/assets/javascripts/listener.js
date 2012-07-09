@@ -2,7 +2,7 @@
 
 var listen = {};
 
-listen.forClickTdShow = function() { 
+listen.forClickOnTdShow = function() { 
     
 
     //Listen for a click 
@@ -16,8 +16,7 @@ listen.forClickTdShow = function() {
 
 listen.forClickOnNewButton = function() {
 
-
-  $('center a#new_person').click( function(event){
+  $('a#new_person').click( function(event){
     event.preventDefault();
     viewMethods.slideNewForm(); 
   })
