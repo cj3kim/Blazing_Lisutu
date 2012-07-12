@@ -36,14 +36,8 @@ listen.forSubmitOnEditForm = function ( personId, $editForm) {
 
     var $personRow = $('tr.person#' + personId);
 
-    var currentPersonData = {
-      person: {
-        f_name: $editForm.find('#f_name').attr('value'),
-        l_name: $editForm.find('#l_name').attr('value'),
-        address: $editForm.find('#address').attr('value'),
-        phone_num: $editForm.find('#phone_num').attr('value'),
-      },
-    }
+    var currentPersonData = dataLoader($editForm); //load current person data
+
     var newPersonData = modelMethods.updatePerson(personId, currentPersonData); 
 
     viewMethods.updatePersonRow($personRow, newPersonData)
@@ -69,10 +63,10 @@ listen.forSubmitOnNewForm = function ($newForm) {
 var dataLoader = function(callback) {
   var data = {};
   data.person = {
-    f_name: callback.find('#new_f_name').attr('value'),
-    l_name: callback.find('#new_l_name').attr('value'),
-    address: callback.find('#new_address').attr('value'),
-    phone_num: callback.find('#new_phone_num').attr('value'),
+    f_name: callback.find('input.f_name').attr('value'),
+    l_name: callback.find('input.l_name').attr('value'),
+    address: callback.find('input.address').attr('value'),
+    phone_num: callback.find('input.phone_num').attr('value'),
   };
   return data;
 }

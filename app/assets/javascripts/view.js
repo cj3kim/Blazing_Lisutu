@@ -1,12 +1,12 @@
 var personForm = "<br><form> \
                   <label>First Name</label>  \
-                  <input  class='edit_form' id='f_name' type='text' value=''></input> <br><br>  \
+                  <input  class='f_name' type='text' value=''></input> <br><br>  \
                   <label>Last Name</label>  \
-                  <input  class='edit_form' id='l_name' type='text' value=''></input> <br><br>  \
+                  <input  class='l_name' type='text' value=''></input> <br><br>  \
                   <label>Address</label>  \
-                  <input  class='edit_form' id='address' type='text' value=''></input> <br><br> \
+                  <input  class='address' type='text' value=''></input> <br><br> \
                   <label>Phone Number</label>  \
-                  <input  class='edit_form' id='phone_num' type='text' value=''></input> <br><br> \
+                  <input  class='phone_num' type='text' value=''></input> <br><br> \
                   <input type='submit'></input> \
                </form> <br> ";  
 
