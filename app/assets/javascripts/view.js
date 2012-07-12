@@ -53,8 +53,11 @@ viewMethods.slideEditForm = function ($personTr) {
 viewMethods.slideNewForm = function() {
 
   if ($('center#new_person div.form_box').length === 0) {
-    this.insertNewForm();
-    $('center div.form_box').hide().slideDown(800);
+
+    var callback = [listen.forSubmitOnNewForm, listen];
+    this.insertNewForm(callback);
+
+    $('center#new_person div.form_box').hide().slideDown(800);
   } else {
       $('center#new_person div.form_box').slideToggle(800, function() {
           $(this).remove();
@@ -62,49 +65,56 @@ viewMethods.slideNewForm = function() {
   }
 }
 
-//Used to dynamically add new rows to page without refresh.
-//Currently, the feature isn't implemented.
-//
-/*
-viewMethods.insertPersonRow = function(data) {
-
-  var $newRow = $(newRow);
-  $newRow.find('#f_name').text(data.person.f_name);
-  $newRow.find('#l_name').text(data.person.l_name);
-  $newRow.find('#address').text(data.person.address);
-  $newRow.find('#phone_num').text(data.person.phone_num);
-  $('table').append($newRow);
-
-}
-*/
 
 viewMethods.insertEditForm =  function($personTr, $editForm) {
 
-    var personId = $personTr.attr('id');
-    var dropDownBox = '<tr class=\'person\' id=\'' + personId + 'n\'><td colspan=6> <div class=\'form_box\'></div></td></tr>';
+  var personId = $personTr.attr('id');
+  var dropDownBox = "<tr class='person' id='' + personId + 'n'><td colspan=6> <div class='form_box'></div></td></tr>";
 
-    $personTr.after(dropDownBox);
+  $personTr.after(dropDownBox);
 
-    $formContainer = $personTr.next().find('div.form_box');
-    $formContainer.append($editForm);
+  $formContainer = $personTr.next().find('div.form_box');
+  $formContainer.append($editForm);
 };
 
 viewMethods.insertNewForm = function() {
-    
-    var $newForm = $(personForm);
-    var $formContainer = $('<div class=\'form_box\'></div>');   
-    $('center#new_person').append($formContainer); 
-    $('center#new_person div.form_box').append($newForm);
 
-    listen.forSubmitOnNewForm($newForm);
+    var $args = $(this.insertNewForm.arguments); //Declare args
+    var callbacks = $args;
+
+    var $newForm = $(personForm);
+    var $newPersonSection = $('center#new_person');
+    var $formContainer = $("<div class='form_box'></div>");   
+
+    $newPersonSection.append($formContainer); 
+    $formContainer.append($newForm);
+    
+
+    for (var i = 0; i <= callbacks.length; i++) {
+      //Check if a callback is an array
+      switch (typeof callbacks[i]) {
+        case "object": 
+          var ary = callbacks[i];
+          var objMethod = ary[0] 
+          var callbackObject = ary[1]
+          objMethod.call(callbackObject, $newForm)
+          break;
+        case "function":
+          var callbackFunction = callbacks[i];
+          callbackFunction($newForm);
+          break;
+        default: 
+          break;
+      }
+    }
 }
 
 
 viewMethods.updateEditForm = function (callback, data) {
-    callback.find('#f_name').attr('value', data.f_name); 
-    callback.find('#l_name').attr('value', data.l_name); 
-    callback.find('#address').attr('value', data.address); 
-    callback.find('#phone_num').attr('value', data.phone_num); 
+    callback.find('input.f_name').attr('value', data.f_name); 
+    callback.find('input.l_name').attr('value', data.l_name); 
+    callback.find('input.address').attr('value', data.address); 
+    callback.find('input.phone_num').attr('value', data.phone_num); 
 }
 
 viewMethods.updatePersonRow = function (callback, data) {
@@ -113,4 +123,6 @@ viewMethods.updatePersonRow = function (callback, data) {
     callback.find('#address').text(data.person.address); 
     callback.find('#phone_num').text(data.person.phone_num); 
 }
+
+
 

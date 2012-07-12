@@ -6,8 +6,8 @@ modelMethods.getPerson = function (personId) {
   var personData; 
  
   $.ajax({
-    type:"GET",
     url: "/people/" + personId ,
+    type:"GET",
     contentType: "application/json; charset=utf-8", 
     dataType: "JSON",
     async: false,
@@ -19,11 +19,11 @@ modelMethods.getPerson = function (personId) {
   return personData; 
 };
 
-modelMethods.updatePerson =  function (personId, data, callback ) {
+modelMethods.updatePerson =  function (personId, data ) {
   
   $.ajax({
-    type: "PUT",
     url: "/people/" + personId,
+    type: "PUT",
     data: data, 
     async: false, 
     dataType: "JSON", 
@@ -33,25 +33,23 @@ modelMethods.updatePerson =  function (personId, data, callback ) {
 };
 
 modelMethods.postNewPerson = function (data) {
-
+  
   $.ajax({
-    type: "POST",
     url: "/people/",
+    type: "POST",
     data: data, 
     async: false, 
     dataType: "JSON", 
     success: function(jsonData) {
-
     }
   });
-
   return data;
 }
 
 modelMethods.deletePerson = function (personId) { 
   $.ajax({
-      type: "DELETE",
       url: "/people/" + personId, 
+      type: "DELETE",
       dataType: "JSON" 
     }
   );

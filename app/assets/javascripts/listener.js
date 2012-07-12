@@ -36,11 +36,11 @@ listen.forSubmitOnEditForm = function ( personId, $editForm) {
 
     var $personRow = $('tr.person#' + personId);
 
-    var currentPersonData = dataLoader($editForm); //load current person data
+    var currentPersonData = formDataLoader($editForm); //load current person data
 
-    var newPersonData = modelMethods.updatePerson(personId, currentPersonData); 
+    var newPersonData = modelMethods.updatePerson(personId, currentPersonData); //Updates person and returns results
 
-    viewMethods.updatePersonRow($personRow, newPersonData)
+    viewMethods.updatePersonRow($personRow, newPersonData) //Updates row 
   }); 
 } 
 
@@ -49,7 +49,7 @@ listen.forSubmitOnNewForm = function ($newForm) {
   $newForm.submit( function(event) {
     event.preventDefault();
 
-    var newPersonData = dataLoader($newForm); 
+    var newPersonData = formDataLoader($newForm); 
 
     modelMethods.postNewPerson(newPersonData);
 
@@ -60,7 +60,7 @@ listen.forSubmitOnNewForm = function ($newForm) {
   });
 }
 
-var dataLoader = function(callback) {
+var formDataLoader = function(callback) {
   var data = {};
   data.person = {
     f_name: callback.find('input.f_name').attr('value'),
