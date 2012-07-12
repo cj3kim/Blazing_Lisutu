@@ -10,15 +10,6 @@ var personForm = "<form><br /> \
                   <input type='submit'></input> <br /> \
                   </form>";  
 
-var newRow  = "<tr class='person' id=''> \
-                <td id='f_name'> </td> \
-                <td id='l_name'> </td> \
-                <td id='address'> </td> \
-                <td id='phone_num'> </td> \
-                <td> Delete </td> \
-                <td class='drop_down'> Show </td> \
-              </tr>";
-
 var dropDownBox = "<tr class='person' id='' + personId + 'n'><td colspan=6> <div class='form_box'></div></td></tr>";
 
 var viewMethods = {};
@@ -36,7 +27,6 @@ viewMethods.slideEditForm = function ($personTr) {
 
     var personData = modelMethods.getPerson(personId); 
 
-    
     this.insertEditForm($personTr, $editForm);// insert edit form
     this.updateForm($editForm, personData)//update edit form
 
@@ -79,19 +69,17 @@ viewMethods.slideNewForm = function() {
 
 viewMethods.insertRow = function($personTr) {
 
-  //Insert row should contain callbacks
-
   var personId = $personTr.attr('id');
   var basicRow = $("<tr></tr>");
 
   $personTr.after(basicRow);
-  
 }
 
 viewMethods.insertEditForm =  function($personTr, $editForm) {
 
   var personId = $personTr.attr('id');
-  var dropDownBox = "<tr class='person' id='' + personId + 'n'><td colspan=6> <div class='form_box'></div></td></tr>";
+  var dropDownBox = "<tr class='person' id='' + personId + 'n'> \
+                    <td colspan=6> <div class='form_box'></div></td></tr>";
 
   $personTr.after(dropDownBox);
 
@@ -101,33 +89,12 @@ viewMethods.insertEditForm =  function($personTr, $editForm) {
 
 viewMethods.insertNewForm = function() {
 
-    var $args = $(this.insertNewForm.arguments); //Declare args
-    var callbacks = $args;
-
     var $newForm = $(personForm);
     var $newPersonSection = $('center#new_person');
     var $formContainer = $("<div class='form_box'></div>");   
 
     $newPersonSection.append($formContainer); 
     $formContainer.append($newForm);
-
-    for (var i = 0; i <= callbacks.length; i++) {
-      //Check if a callback is an array
-      switch (typeof callbacks[i]) {
-        case "object": 
-          var ary = callbacks[i];
-          var objMethod = ary[0];
-          var callbackObject = ary[1];
-          objMethod.call(callbackObject, $newForm);
-          break;
-        case "function":
-          var callbackFunction = callbacks[i];
-          callbackFunction($newForm);
-          break;
-        default: 
-          break;
-      }
-    }
 }
 
 

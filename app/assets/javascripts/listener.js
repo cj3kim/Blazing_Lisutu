@@ -4,15 +4,11 @@ var listen = {};
 
 listen.forClickOnTdShow = function() { 
   //Listen for a click 
-  
   var $allShowColumns = $('tr td.drop_down');
-
   $allShowColumns.click( function () {
 
-    //References parent tr
-    var $personRow = $(this).parent(); 
-
-    viewMethods.slideEditForm($personRow);
+  var $personRow = $(this).parent(); 
+  viewMethods.slideEditForm($personRow);
 
   });
 }
@@ -35,9 +31,7 @@ listen.forSubmitOnEditForm = function ( personId, $editForm) {
     event.preventDefault();
 
     var $personRow = $('tr.person#' + personId);
-
     var currentPersonData = formDataLoader($editForm); //load current person data
-
     var newPersonData = modelMethods.updatePerson(personId, currentPersonData); //Updates person and returns results
 
     viewMethods.updatePersonRow($personRow, newPersonData) //Updates row 
