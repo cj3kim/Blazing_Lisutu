@@ -1,0 +1,24 @@
+  //Declare args
+  var $args = $(this.insertEditForm.arguments);
+  //Splice out args 0 & 1. Rest of args are references to functions
+  $args.splice(0,2);
+
+  var callbacks = $args;
+
+  for (var callback in callbacks) {
+    //Check if a callback is an array
+    
+
+    switch (typeof callbacks[callback]) {
+      case "object": 
+        var ary = callbacks[callback];
+        var objMethod = ary[0] 
+        var callbackObject = ary[1]
+        objMethod.call(callbackObject, /* insert args*/)
+        break;
+      case "function":
+        var callbackFunction = callbacks[callback];
+        callbackFunction(/* insert a value*/);
+        break;
+    }
+  }

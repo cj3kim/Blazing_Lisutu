@@ -1,4 +1,4 @@
-var personForm = "<br><form> \
+var personForm = "<form><br /> \
                   <label>First Name</label>  \
                   <input  class='f_name' type='text' value=''></input> <br><br>  \
                   <label>Last Name</label>  \
@@ -7,8 +7,8 @@ var personForm = "<br><form> \
                   <input  class='address' type='text' value=''></input> <br><br> \
                   <label>Phone Number</label>  \
                   <input  class='phone_num' type='text' value=''></input> <br><br> \
-                  <input type='submit'></input> \
-               </form> <br> ";  
+                  <input type='submit'></input> <br /> \
+                  </form>";  
 
 var newRow  = "<tr class='person' id=''> \
                 <td id='f_name'> </td> \
@@ -19,19 +19,26 @@ var newRow  = "<tr class='person' id=''> \
                 <td class='drop_down'> Show </td> \
               </tr>";
 
+var dropDownBox = "<tr class='person' id='' + personId + 'n'><td colspan=6> <div class='form_box'></div></td></tr>";
+
 var viewMethods = {};
 
 viewMethods.slideEditForm = function ($personTr) {
 
   var personId = $personTr.attr('id');
   var $editForm = $(personForm);
+  
+  function findEditFormContainer() {
+    return $personTr.next().find('div.form_box');
+  }
 
-  if ($personTr.next().find('div.form_box').length === 0) {
+  if (findEditFormContainer().length === 0) {
 
     var personData = modelMethods.getPerson(personId); 
 
-    this.insertEditForm($personTr, $editForm);
-    this.updateEditForm($editForm, personData)
+    
+    this.insertEditForm($personTr, $editForm);// insert edit form
+    this.updateForm($editForm, personData)//update edit form
 
     listen.forSubmitOnEditForm( personId, $editForm);
 
@@ -52,19 +59,34 @@ viewMethods.slideEditForm = function ($personTr) {
 
 viewMethods.slideNewForm = function() {
 
-  if ($('center#new_person div.form_box').length === 0) {
+
+  function findNewFormContainer() {
+    return $('center#new_person div.form_box');
+  }
+
+  if (findNewFormContainer().length === 0) {
 
     var callback = [listen.forSubmitOnNewForm, listen];
     this.insertNewForm(callback);
+    findNewFormContainer().hide().slideDown(800);
 
-    $('center#new_person div.form_box').hide().slideDown(800);
   } else {
-      $('center#new_person div.form_box').slideToggle(800, function() {
+      findNewFormContainer().slideToggle(800, function() {
           $(this).remove();
       }); 
   }
 }
 
+viewMethods.insertRow = function($personTr) {
+
+  //Insert row should contain callbacks
+
+  var personId = $personTr.attr('id');
+  var basicRow = $("<tr></tr>");
+
+  $personTr.after(basicRow);
+  
+}
 
 viewMethods.insertEditForm =  function($personTr, $editForm) {
 
@@ -88,16 +110,15 @@ viewMethods.insertNewForm = function() {
 
     $newPersonSection.append($formContainer); 
     $formContainer.append($newForm);
-    
 
     for (var i = 0; i <= callbacks.length; i++) {
       //Check if a callback is an array
       switch (typeof callbacks[i]) {
         case "object": 
           var ary = callbacks[i];
-          var objMethod = ary[0] 
-          var callbackObject = ary[1]
-          objMethod.call(callbackObject, $newForm)
+          var objMethod = ary[0];
+          var callbackObject = ary[1];
+          objMethod.call(callbackObject, $newForm);
           break;
         case "function":
           var callbackFunction = callbacks[i];
@@ -110,7 +131,7 @@ viewMethods.insertNewForm = function() {
 }
 
 
-viewMethods.updateEditForm = function (callback, data) {
+viewMethods.updateForm = function (callback, data) {
     callback.find('input.f_name').attr('value', data.f_name); 
     callback.find('input.l_name').attr('value', data.l_name); 
     callback.find('input.address').attr('value', data.address); 
