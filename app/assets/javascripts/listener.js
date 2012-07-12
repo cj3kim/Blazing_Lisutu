@@ -3,20 +3,26 @@
 var listen = {};
 
 listen.forClickOnTdShow = function() { 
-    
+  //Listen for a click 
+  
+  var $allShowColumns = $('tr td.drop_down');
 
-    //Listen for a click 
-    $('tr td.drop_down').click( function () {
-      var $personTr = $(this).parent();
-      
-      viewMethods.slideEditForm($personTr);
+  $allShowColumns.click( function () {
 
-    });
+    //References parent tr
+    var $personRow = $(this).parent(); 
+
+    viewMethods.slideEditForm($personRow);
+
+  });
 }
 
 listen.forClickOnNewButton = function() {
 
-  $('a#new_person').click( function(event){
+  //References the new parent link at the bottom of the page
+  var $newPersonLink = $('a#new_person'); 
+
+  $newPersonLink.click( function(event){
     event.preventDefault();
     viewMethods.slideNewForm(); 
   })
@@ -26,9 +32,9 @@ listen.forClickOnNewButton = function() {
 listen.forSubmitOnEditForm = function ( personId, $editForm) {
 
   $editForm.submit( function(event) {
-    var $personRow = $('tr.person#' + personId);
-
     event.preventDefault();
+
+    var $personRow = $('tr.person#' + personId);
 
     var currentPersonData = {
       person: {
@@ -38,13 +44,9 @@ listen.forSubmitOnEditForm = function ( personId, $editForm) {
         phone_num: $editForm.find('#phone_num').attr('value'),
       },
     }
-
     var newPersonData = modelMethods.updatePerson(personId, currentPersonData); 
 
     viewMethods.updatePersonRow($personRow, newPersonData)
-
-
-    alert('You\'ve updated this person');
   }); 
 } 
 
@@ -53,14 +55,7 @@ listen.forSubmitOnNewForm = function ($newForm) {
   $newForm.submit( function(event) {
     event.preventDefault();
 
-    var newPersonData = {
-      person: {
-        f_name: $newForm.find('#f_name').attr('value'),
-        l_name: $newForm.find('#l_name').attr('value'),
-        address: $newForm.find('#address').attr('value'),
-        phone_num: $newForm.find('#phone_num').attr('value'),
-      },
-    };
+    var newPersonData = dataLoader($newForm); 
 
     modelMethods.postNewPerson(newPersonData);
 
@@ -69,4 +64,15 @@ listen.forSubmitOnNewForm = function ($newForm) {
       }
     );
   });
+}
+
+var dataLoader = function(callback) {
+  var data = {};
+  data.person = {
+    f_name: callback.find('#new_f_name').attr('value'),
+    l_name: callback.find('#new_l_name').attr('value'),
+    address: callback.find('#new_address').attr('value'),
+    phone_num: callback.find('#new_phone_num').attr('value'),
+  };
+  return data;
 }
