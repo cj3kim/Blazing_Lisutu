@@ -1,8 +1,13 @@
 
+//modelMethods provides four different methods which
+//create, read, update, and delete database rows.
 var modelMethods = {};
 
+
+//Returns personData from the database based on a person identifier
 modelMethods.getPerson = function (personId) { 
 
+  //Declares a person variable but does not assign
   var personData; 
  
   $.ajax({
@@ -10,6 +15,8 @@ modelMethods.getPerson = function (personId) {
     type:"GET",
     contentType: "application/json; charset=utf-8", 
     dataType: "JSON",
+    //Async needs to be set to false or ajax will not assign
+    //jsonData to personData
     async: false,
     success: function(jsonData) {
       personData = jsonData;
@@ -19,25 +26,31 @@ modelMethods.getPerson = function (personId) {
   return personData; 
 };
 
+//Updates person data in the database based on a person identifier.
+//It returns the data used to update the db afterward.
 modelMethods.updatePerson =  function (personId, data ) {
   
   $.ajax({
     url: "/people/" + personId,
     type: "PUT",
     data: data, 
+    //Async needs to be set to false or ajax will not assign
+    //jsonData to personData
     async: false, 
     dataType: "JSON", 
   });
 
   return data; 
 };
-
+//Posts new person data in the database. Returns data used to post it. 
 modelMethods.postNewPerson = function (data) {
   
   $.ajax({
     url: "/people/",
     type: "POST",
     data: data, 
+    //Async needs to be set to false or ajax will not assign
+    //jsonData to personData
     async: false, 
     dataType: "JSON", 
     success: function(jsonData) {
@@ -46,6 +59,8 @@ modelMethods.postNewPerson = function (data) {
   return data;
 }
 
+//This app uses rails Delete method 
+//Not used in project but here for proof of concept
 modelMethods.deletePerson = function (personId) { 
   $.ajax({
       url: "/people/" + personId, 
@@ -54,6 +69,8 @@ modelMethods.deletePerson = function (personId) {
     }
   );
 }
+
+//Helper function which puts data into a format rails will accept. 
 
 var railsPutPostData = function(callback) {
   var data = {};
