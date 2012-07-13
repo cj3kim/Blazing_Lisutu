@@ -70,7 +70,17 @@ modelMethods.deletePerson = function (personId) {
   );
 }
 
-//Helper function which puts data into a format rails will accept. 
+//Helper function which puts data into a format rails will accept.
+//The callback is either an edit or new form
+//The 
+//GET requests return data as so:
+//
+//data = {         This does not work. Rails wants data properties 
+//  f_name: '',    (f_name,l_name,address,phone_num) to be the properties
+//  l_name: '',     of a person object for POST and PUT requests.
+//  address: '',
+//  phone_num: ''
+//}
 
 var railsPutPostData = function(callback) {
   var data = {};
