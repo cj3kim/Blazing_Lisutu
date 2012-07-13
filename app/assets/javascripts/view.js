@@ -21,7 +21,7 @@ var dropDownBox = "<tr class='person' id='' + personId + 'n'><td colspan=6> <div
 //to make changes.
 var viewHelper = {};
 
-//Slides down an edit form
+//Slide up/down an edit form
 viewHelper.slideEditForm = function ($personTr) {
 
   //Deduce personId from $personTr
@@ -29,13 +29,11 @@ viewHelper.slideEditForm = function ($personTr) {
   //Encapsulates a personForm into a jQuery object
   var $editForm = $(personForm);
   
-  //If the div, which contains the form, is empty, insert an
-  //edit form into the div. 
+  //If a form count inside the form div is 0, insert a form
   if (findEditFormContainer($personTr).length === 0) {
 
     //Make a GET request for person data
     var personData = modelMethods.getPerson(personId); 
-
     //Insert an edit row after the personTr and then insert an edit form
     this.insertEditForm($personTr, $editForm);
     //Insert person data from the GET request in the form
@@ -43,31 +41,32 @@ viewHelper.slideEditForm = function ($personTr) {
     //Place an the submit handler on the edit form
     viewController.forSubmitOnEditForm( personId, $editForm);
 
+    //Find the edit form container, hide it, and slide it down.
     findEditFormContainer($personTr).hide().slideDown(800);
 
-  } else {
-      var $dropDownBox = $personTr.next(); 
-      var $divInDropDownBox = $dropDownBox.find('div.form_box');
-
-      $divInDropDownBox.slideToggle(800, function() {
-          $dropDownBox.remove();
-      }); 
+  } else { //if form count is not 0, find a form and slide it up 
+      slideUpAndRemove(findEditFormContainer($personTr));
   }
 }
 
+//Slide up/down a new form
 viewHelper.slideNewForm = function() {
 
+  //If a form count inside the form div is 0, insert a form
   if (findNewFormContainer().length === 0) {
 
+    //Insert a new form 
     this.insertNewForm(); 
+
+    //hide the form and slide it down
     findNewFormContainer().hide().slideDown(800);
 
+    //Attach the submit listener/handler to the new form
     viewController.forSubmitOnNewForm(findNewForm());
 
-  } else {
-      findNewFormContainer().slideToggle(800, function() {
-          $(this).remove();
-      }); 
+  } else { //if form count is not 0, find a form and slide it up
+
+      slideUpAndRemove(findNewFormContainer()); 
   }
 }
 
@@ -120,5 +119,12 @@ function findNewFormContainer() {
 }
 function findNewForm() {
   return $('center#new_person form'); 
+}
+function slideUpAndRemove(callback) {
+  callback.slideToggle(800, function() {
+      //form container is removed after it has slid up
+      $(this).remove();
+  }); 
+
 }
 
