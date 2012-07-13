@@ -53,12 +53,18 @@ viewMethods.slideNewForm = function() {
   function findNewFormContainer() {
     return $('center#new_person div.form_box');
   }
+  function findNewForm() {
+    return $('center#new_person form'); 
+  }
+
 
   if (findNewFormContainer().length === 0) {
 
-    var callback = [listen.forSubmitOnNewForm, listen];
-    this.insertNewForm(callback);
+    this.insertNewForm(); 
+
     findNewFormContainer().hide().slideDown(800);
+
+    listen.forSubmitOnNewForm(findNewForm());
 
   } else {
       findNewFormContainer().slideToggle(800, function() {
@@ -67,13 +73,6 @@ viewMethods.slideNewForm = function() {
   }
 }
 
-viewMethods.insertRow = function($personTr) {
-
-  var personId = $personTr.attr('id');
-  var basicRow = $("<tr></tr>");
-
-  $personTr.after(basicRow);
-}
 
 viewMethods.insertEditForm =  function($personTr, $editForm) {
 
