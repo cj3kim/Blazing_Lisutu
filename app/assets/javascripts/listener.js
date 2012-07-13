@@ -8,7 +8,7 @@ listen.forClickOnTdShow = function() {
   $allShowColumns.click( function () {
 
   var $personRow = $(this).parent(); 
-  viewMethods.slideEditForm($personRow);
+  viewHelper.slideEditForm($personRow);
 
   });
 }
@@ -20,7 +20,7 @@ listen.forClickOnNewButton = function() {
 
   $newPersonLink.click( function(event){
     event.preventDefault();
-    viewMethods.slideNewForm(); 
+    viewHelper.slideNewForm(); 
   })
 }
 
@@ -31,10 +31,10 @@ listen.forSubmitOnEditForm = function ( personId, $editForm) {
     event.preventDefault();
 
     var $personRow = $('tr.person#' + personId);
-    var currentPersonData = formDataLoader($editForm); //load current person data
+    var currentPersonData = railsPutPostData($editForm); //load current person data
     var newPersonData = modelMethods.updatePerson(personId, currentPersonData); //Updates person and returns results
 
-    viewMethods.updatePersonRow($personRow, newPersonData) //Updates row 
+    viewHelper.updatePersonRow($personRow, newPersonData) //Updates row 
   }); 
 } 
 
@@ -43,7 +43,7 @@ listen.forSubmitOnNewForm = function ($newForm) {
   $newForm.submit( function(event) {
     event.preventDefault();
 
-    var newPersonData = formDataLoader($newForm); 
+    var newPersonData = railsPutPostData($newForm); 
 
     modelMethods.postNewPerson(newPersonData);
 
@@ -54,7 +54,7 @@ listen.forSubmitOnNewForm = function ($newForm) {
   });
 }
 
-var formDataLoader = function(callback) {
+var railsPutPostData = function(callback) {
   var data = {};
   data.person = {
     f_name: callback.find('input.f_name').attr('value'),

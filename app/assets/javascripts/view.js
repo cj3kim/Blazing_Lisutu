@@ -12,9 +12,9 @@ var personForm = "<form><br /> \
 
 var dropDownBox = "<tr class='person' id='' + personId + 'n'><td colspan=6> <div class='form_box'></div></td></tr>";
 
-var viewMethods = {};
+var viewHelper = {};
 
-viewMethods.slideEditForm = function ($personTr) {
+viewHelper.slideEditForm = function ($personTr) {
 
   var personId = $personTr.attr('id');
   var $editForm = $(personForm);
@@ -47,7 +47,7 @@ viewMethods.slideEditForm = function ($personTr) {
   }
 }
 
-viewMethods.slideNewForm = function() {
+viewHelper.slideNewForm = function() {
 
 
   function findNewFormContainer() {
@@ -74,7 +74,7 @@ viewMethods.slideNewForm = function() {
 }
 
 
-viewMethods.insertEditForm =  function($personTr, $editForm) {
+viewHelper.insertEditForm =  function($personTr, $editForm) {
 
   var personId = $personTr.attr('id');
   var dropDownBox = "<tr class='person' id='' + personId + 'n'> \
@@ -86,7 +86,7 @@ viewMethods.insertEditForm =  function($personTr, $editForm) {
   $formContainer.append($editForm);
 };
 
-viewMethods.insertNewForm = function() {
+viewHelper.insertNewForm = function() {
 
     var $newForm = $(personForm);
     var $newPersonSection = $('center#new_person');
@@ -97,14 +97,14 @@ viewMethods.insertNewForm = function() {
 }
 
 
-viewMethods.updateForm = function (callback, data) {
+viewHelper.updateForm = function (callback, data) {
     callback.find('input.f_name').attr('value', data.f_name); 
     callback.find('input.l_name').attr('value', data.l_name); 
     callback.find('input.address').attr('value', data.address); 
     callback.find('input.phone_num').attr('value', data.phone_num); 
 }
 
-viewMethods.updatePersonRow = function (callback, data) {
+viewHelper.updatePersonRow = function (callback, data) {
     callback.find('#f_name').text(data.person.f_name); 
     callback.find('#l_name').text(data.person.l_name);
     callback.find('#address').text(data.person.address); 
