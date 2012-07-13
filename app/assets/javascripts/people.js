@@ -7,8 +7,8 @@
 
 $(document).ready(function() {
 
-  listen.forClickOnTdShow();
-  listen.forClickOnNewButton();
+  viewController.forClickOnTdShow();
+  viewController.forClickOnNewButton();
 }); 
 
 

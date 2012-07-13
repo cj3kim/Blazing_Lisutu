@@ -30,7 +30,7 @@ viewHelper.slideEditForm = function ($personTr) {
     this.insertEditForm($personTr, $editForm);// insert edit form
     this.updateForm($editForm, personData)//update edit form
 
-    listen.forSubmitOnEditForm( personId, $editForm);
+    viewController.forSubmitOnEditForm( personId, $editForm);
 
     var $dropDownBox = $personTr.next(); //I know this smells!
 
@@ -61,10 +61,9 @@ viewHelper.slideNewForm = function() {
   if (findNewFormContainer().length === 0) {
 
     this.insertNewForm(); 
-
     findNewFormContainer().hide().slideDown(800);
 
-    listen.forSubmitOnNewForm(findNewForm());
+    viewController.forSubmitOnNewForm(findNewForm());
 
   } else {
       findNewFormContainer().slideToggle(800, function() {

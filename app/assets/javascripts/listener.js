@@ -1,9 +1,9 @@
 
 
-var listen = {};
+var viewController = {};
 
-listen.forClickOnTdShow = function() { 
-  //Listen for a click 
+viewController.forClickOnTdShow = function() { 
+  //viewController for a click 
   var $allShowColumns = $('tr td.drop_down');
   $allShowColumns.click( function () {
 
@@ -13,7 +13,7 @@ listen.forClickOnTdShow = function() {
   });
 }
 
-listen.forClickOnNewButton = function() {
+viewController.forClickOnNewButton = function() {
 
   //References the new parent link at the bottom of the page
   var $newPersonLink = $('a#new_person'); 
@@ -25,7 +25,7 @@ listen.forClickOnNewButton = function() {
 }
 
 
-listen.forSubmitOnEditForm = function ( personId, $editForm) {
+viewController.forSubmitOnEditForm = function ( personId, $editForm) {
 
   $editForm.submit( function(event) {
     event.preventDefault();
@@ -38,7 +38,7 @@ listen.forSubmitOnEditForm = function ( personId, $editForm) {
   }); 
 } 
 
-listen.forSubmitOnNewForm = function ($newForm) {
+viewController.forSubmitOnNewForm = function ($newForm) {
 
   $newForm.submit( function(event) {
     event.preventDefault();
@@ -54,13 +54,4 @@ listen.forSubmitOnNewForm = function ($newForm) {
   });
 }
 
-var railsPutPostData = function(callback) {
-  var data = {};
-  data.person = {
-    f_name: callback.find('input.f_name').attr('value'),
-    l_name: callback.find('input.l_name').attr('value'),
-    address: callback.find('input.address').attr('value'),
-    phone_num: callback.find('input.phone_num').attr('value'),
-  };
-  return data;
-}
+

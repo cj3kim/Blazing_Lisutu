@@ -55,5 +55,15 @@ modelMethods.deletePerson = function (personId) {
   );
 }
 
+var railsPutPostData = function(callback) {
+  var data = {};
+  data.person = {
+    f_name: callback.find('input.f_name').attr('value'),
+    l_name: callback.find('input.l_name').attr('value'),
+    address: callback.find('input.address').attr('value'),
+    phone_num: callback.find('input.phone_num').attr('value'),
+  };
+  return data;
+}
 
 
